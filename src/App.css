@@ -1,42 +1,42 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* ==========================
+   Mobile: show desktop layout
+   ========================== */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Use a fixed desktop width and scale it to fit the viewport.
+   Scale is computed as (viewport width / desktop width) so it
+   adapts to different phone sizes automatically. */
+@media (max-width: 900px) {
+  html, body {
+    /* make the page behave as if it's a desktop of width 1280px */
+    width: 1280px;
+    height: auto;
+    /* compute scale = (100vw / 1280) so it fits any phone width */
+    transform-origin: top left;
+    transform: scale(calc(100vw / 1280));
+    /* hide horizontal overflow produced by the fixed width */
+    overflow-x: hidden;
+    /* ensure smooth rendering on mobile */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-origin: 0 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  /* prevent double scrollbars on some Android browsers */
+  body > * {
+    /* keep the visual layout intact */
+    will-change: transform;
+  }
+
+  /* Optional: if you use a top fixed navbar, make sure it remains visible after scaling */
+  header, .navbar, .app-nav {
+    position: relative; /* avoid unexpected fixed positioning after scale */
+    z-index: 1000;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Small tweak for very tiny screens to avoid extremely small scale values */
+@media (max-width: 320px) {
+  html, body {
+    transform: scale(calc(320px / 1280)); /* clamp to minimum reasonable scale */
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
